@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const dns = require('dns');
 
-// Use Google DNS to resolve MongoDB Atlas domains
+// Use Google DNS to resolve MongoDB Atlas domains locally
 // (some corporate/campus networks block SRV record lookups)
-dns.setServers(['8.8.8.8', '8.8.4.4']);
+if (process.env.NODE_ENV !== 'production') {
+  dns.setServers(['8.8.8.8', '8.8.4.4']);
+}
 
 const connectDB = async () => {
   try {
