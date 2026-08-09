@@ -13,5 +13,5 @@ services:
         value: 10000
       - key: CLIENT_URL
         sync: false # Set this to your frontend URL (e.g., Vercel/Netlify) in the Render dashboard!
-      - key: MONGO_URI
+      - key: MONGODB_URI
         sync: false # Do not commit the actual URI here for security; add it in the Render dashboard!
