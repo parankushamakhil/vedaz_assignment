@@ -2,6 +2,7 @@ services:
   - type: web
     name: real-time-chat-server
     env: node
+    plan: free
     rootDir: real-time-chat/server
     buildCommand: npm install
     startCommand: npm start
