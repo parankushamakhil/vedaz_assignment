@@ -1,0 +1,51 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  transition: all var(--transition-normal);
+}
+
+.connected {
+  background: rgba(46, 213, 115, 0.12);
+  color: var(--status-online);
+}
+
+.connecting {
+  background: rgba(255, 165, 2, 0.12);
+  color: var(--status-connecting);
+}
+
+.disconnected {
+  background: rgba(255, 71, 87, 0.12);
+  color: var(--status-offline);
+}
+
+.indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.indicatorConnected {
+  background: var(--status-online);
+  box-shadow: 0 0 6px var(--status-online);
+}
+
+.indicatorConnecting {
+  background: var(--status-connecting);
+  animation: pulse 1.5s infinite;
+}
+
+.indicatorDisconnected {
+  background: var(--status-offline);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
