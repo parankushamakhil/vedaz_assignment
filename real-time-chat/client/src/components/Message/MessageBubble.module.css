@@ -1,6 +1,6 @@
 .messageWrapper {
   display: flex;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   width: 100%;
   animation: slideUp 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
   opacity: 0;
@@ -23,8 +23,8 @@
 }
 
 .bubble {
-  max-width: 70%;
-  min-width: 120px;
+  max-width: 65%;
+  min-width: 100px;
   position: relative;
 }
 
@@ -40,13 +40,14 @@
   background: var(--bubble-own);
   color: var(--bubble-own-text);
   border-bottom-right-radius: var(--space-xs);
+  box-shadow: var(--shadow-sm);
 }
 
 .other .bubbleInner {
   background: var(--bubble-other);
   color: var(--bubble-other-text);
-  border: 1px solid var(--border-primary);
   border-bottom-left-radius: var(--space-xs);
+  box-shadow: var(--shadow-sm);
 }
 
 .senderName {
@@ -57,8 +58,7 @@
 }
 
 .own .senderName {
-  color: var(--bubble-own-text);
-  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.75);
   text-align: right;
 }
 
@@ -81,12 +81,11 @@
 
 .timestamp {
   font-size: var(--font-size-xs);
-  opacity: 0.6;
+  opacity: 0.65;
 }
 
 .own .timestamp {
-  color: var(--bubble-own-text);
-  opacity: 0.6;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .other .timestamp {
@@ -99,15 +98,15 @@
 }
 
 .statusSent {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .statusDelivered {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .statusRead {
-  color: var(--color-success);
+  color: #86efac;
 }
 
 /* Date separator */
@@ -116,23 +115,15 @@
   align-items: center;
   justify-content: center;
   margin: var(--space-md) 0;
-  gap: var(--space-md);
-}
-
-.dateSeparator::before,
-.dateSeparator::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border-primary);
 }
 
 .dateLabel {
   font-size: var(--font-size-xs);
   color: var(--text-muted);
-  padding: 2px 12px;
-  background: var(--bg-tertiary);
+  padding: 4px 14px;
+  background: var(--bg-primary);
   border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
   white-space: nowrap;
 }
 

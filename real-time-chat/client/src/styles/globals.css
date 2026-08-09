@@ -2,47 +2,48 @@
 
 /* ── Design Tokens ── */
 :root {
-  /* Colors — Light Theme (WhatsApp/Telegram Style) */
-  --bg-primary: #f0f2f5; /* App background / header */
-  --bg-secondary: #efeae2; /* Chat area background */
-  --bg-tertiary: #ffffff; /* Sidebar and elements */
-  --bg-surface: #ffffff;
-  --bg-hover: #f5f6f6;
-  --bg-active: #e9edef;
+  /* Colors — Clean Light Theme */
+  --bg-primary: #ffffff;        /* Main background (header, footer, sidebar) */
+  --bg-secondary: #f7f8fc;      /* Chat area — very faint blue-grey */
+  --bg-tertiary: #f0f2f5;       /* Input fields, hover states */
+  --bg-surface: #ffffff;        /* Cards, bubbles, elevated surfaces */
+  --bg-hover: #eef1f5;          /* Hover highlight */
+  --bg-active: #e3e8ef;         /* Active/selected states */
 
-  /* Accent */
-  --accent-primary: #1877f2;
-  --accent-secondary: #166fe5;
-  --accent-glow: rgba(24, 119, 242, 0.25);
-  --accent-gradient: #1877f2;
+  /* Accent — Soft Blue (iMessage / Telegram inspired) */
+  --accent-primary: #3b82f6;
+  --accent-secondary: #2563eb;
+  --accent-glow: rgba(59, 130, 246, 0.15);
+  --accent-gradient: linear-gradient(135deg, #3b82f6, #6366f1);
 
   /* Text */
-  --text-primary: #050505;
-  --text-secondary: #65676b;
-  --text-muted: #8a8d91;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
   --text-inverse: #ffffff;
 
-  /* Message Bubbles (WhatsApp Style) */
-  --bubble-own: #dcf8c6;
-  --bubble-own-text: #111b21;
-  --bubble-other: #ffffff;
-  --bubble-other-text: #111b21;
+  /* Message Bubbles */
+  --bubble-own: #3b82f6;        /* Own messages — solid blue */
+  --bubble-own-text: #ffffff;
+  --bubble-other: #ffffff;      /* Other messages — white */
+  --bubble-other-text: #1e293b;
 
   /* Status Colors */
-  --status-online: #31a24c;
-  --status-connecting: #f5c33b;
-  --status-offline: #8a8d91;
+  --status-online: #22c55e;
+  --status-connecting: #f59e0b;
+  --status-offline: #94a3b8;
+  --color-success: #22c55e;
 
-  /* Borders (Soft contrasts instead of hard lines) */
-  --border-primary: rgba(0, 0, 0, 0.05);
-  --border-secondary: rgba(0, 0, 0, 0.02);
-  --border-accent: rgba(0, 0, 0, 0.05);
+  /* Borders — Very subtle, almost invisible */
+  --border-primary: #e2e8f0;
+  --border-secondary: #f1f5f9;
+  --border-accent: rgba(59, 130, 246, 0.2);
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-glow: 0 0 20px rgba(24, 119, 242, 0.2);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 4px 14px rgba(59, 130, 246, 0.2);
 
   /* Spacing */
   --space-xs: 4px;
@@ -76,8 +77,8 @@
   --transition-slow: 0.4s ease;
 
   /* Layout */
-  --sidebar-width: 280px;
-  --header-height: 64px;
+  --sidebar-width: 300px;
+  --header-height: 60px;
   --input-height: 72px;
 }
 
@@ -111,7 +112,7 @@ body {
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {

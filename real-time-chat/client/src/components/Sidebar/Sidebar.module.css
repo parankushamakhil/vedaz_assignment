@@ -1,7 +1,7 @@
 .sidebar {
   width: var(--sidebar-width);
   height: 100%;
-  background: var(--bg-tertiary);
+  background: var(--bg-primary);
   border-right: 1px solid var(--border-secondary);
   display: flex;
   flex-direction: column;
@@ -10,8 +10,8 @@
 }
 
 .sidebarHeader {
-  padding: var(--space-lg);
-  border-bottom: 1px solid var(--border-primary);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-secondary);
 }
 
 .title {
@@ -23,14 +23,14 @@
 }
 
 .count {
-  color: var(--accent-secondary);
+  color: var(--accent-primary);
   margin-left: var(--space-xs);
 }
 
 .usersList {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-sm);
+  padding: var(--space-xs);
 }
 
 .userItem {
@@ -50,11 +50,11 @@
 }
 
 .activeUserItem {
-  background: var(--bg-active);
+  background: var(--accent-glow);
 }
 
 .activeUserItem:hover {
-  background: var(--bg-active);
+  background: var(--accent-glow);
 }
 
 .onlineIndicator {
@@ -67,16 +67,16 @@
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--bg-surface);
+  background: var(--bg-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-sm);
   font-weight: 600;
-  color: var(--accent-secondary);
+  color: var(--accent-primary);
   flex-shrink: 0;
 }
 
@@ -102,14 +102,14 @@
 }
 
 .currentUser {
-  color: var(--accent-secondary);
+  color: var(--accent-primary);
 }
 
 .youBadge {
   font-size: var(--font-size-xs);
   color: var(--text-muted);
-  padding: 2px 6px;
-  background: var(--bg-surface);
+  padding: 2px 8px;
+  background: var(--bg-tertiary);
   border-radius: var(--radius-full);
 }
 
@@ -145,7 +145,7 @@
     position: fixed;
     inset: 0;
     top: var(--header-height);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 99;
     opacity: 0;
     pointer-events: none;

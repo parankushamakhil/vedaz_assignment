@@ -1,27 +1,25 @@
 .inputContainer {
   padding: var(--space-sm) var(--space-md);
-  background: var(--bg-primary); /* WhatsApp footer color */
-  border-top: 1px solid var(--border-primary);
+  background: var(--bg-primary);
 }
 
 .inputForm {
   display: flex;
   align-items: flex-end;
   gap: var(--space-sm);
-  background: var(--bg-surface);
-  border-radius: var(--radius-xl); /* Rounded pill */
-  padding: var(--space-xs) var(--space-sm);
-  box-shadow: var(--shadow-sm); /* Subtle shadow instead of border */
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-md);
 }
 
 .inputContainer:focus-within {
-  /* No outline or glow in WhatsApp style */
+  /* Clean — no glow or outline */
 }
 
 .textArea {
   flex: 1;
   resize: none;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) 0;
   min-height: 40px;
   max-height: 120px;
   font-size: var(--font-size-base);
@@ -38,10 +36,10 @@
 }
 
 .sendBtn {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--accent-primary); /* Facebook Blue #1877F2 */
+  background: var(--accent-primary);
   color: white;
   display: flex;
   align-items: center;
@@ -49,12 +47,11 @@
   font-size: 18px;
   transition: all var(--transition-fast);
   flex-shrink: 0;
-  box-shadow: var(--shadow-glow);
 }
 
 .sendBtn:hover:not(:disabled) {
+  background: var(--accent-secondary);
   transform: scale(1.05);
-  box-shadow: var(--shadow-glow);
 }
 
 .sendBtn:active:not(:disabled) {
@@ -64,7 +61,6 @@
 .sendBtn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 .charCounter {
@@ -80,6 +76,6 @@
 
 @media (max-width: 768px) {
   .inputContainer {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
   }
 }

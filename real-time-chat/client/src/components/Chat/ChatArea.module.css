@@ -3,16 +3,14 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--bg-secondary);
-  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px; /* Subtle dot pattern like Telegram/WhatsApp web */
+  background: var(--bg-secondary);
   position: relative;
 }
 
 .chatHeader {
-  padding: var(--space-md) var(--space-lg);
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-primary);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-secondary);
 }
 
 .chatTitle {
@@ -30,7 +28,7 @@
 .messagesContainer {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
   display: flex;
   flex-direction: column;
 }
@@ -50,12 +48,13 @@
 .emptyIcon {
   width: 80px;
   height: 80px;
-  background: var(--bg-surface);
+  background: var(--bg-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 36px;
+  box-shadow: var(--shadow-sm);
 }
 
 .emptyTitle {
@@ -74,8 +73,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-primary);
-  border-left: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
 }
 
 .emptyStateContainer {
@@ -103,7 +101,7 @@
 
 /* Typing indicator */
 .typingIndicator {
-  padding: var(--space-xs) var(--space-lg);
+  padding: var(--space-xs) var(--space-xl);
   font-size: var(--font-size-xs);
   color: var(--text-muted);
   animation: fadeIn 0.3s ease;
@@ -121,7 +119,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--text-muted);
+  background: var(--accent-primary);
   animation: typingBounce 1.4s infinite ease-in-out;
 }
 
@@ -169,9 +167,9 @@
   height: 60px;
   background: linear-gradient(
     90deg,
-    var(--bg-surface) 25%,
+    var(--bg-primary) 25%,
     var(--bg-hover) 50%,
-    var(--bg-surface) 75%
+    var(--bg-primary) 75%
   );
   background-size: 200% 100%;
   border-radius: var(--radius-lg);
@@ -185,9 +183,9 @@
 /* Disconnected banner */
 .disconnectedBanner {
   padding: var(--space-sm) var(--space-md);
-  background: rgba(255, 71, 87, 0.1);
-  border-bottom: 1px solid var(--border-primary);
-  color: var(--status-offline);
+  background: rgba(239, 68, 68, 0.08);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.1);
+  color: #ef4444;
   font-size: var(--font-size-sm);
   text-align: center;
   animation: fadeIn 0.3s ease;
