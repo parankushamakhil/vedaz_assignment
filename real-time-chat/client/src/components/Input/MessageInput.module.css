@@ -1,6 +1,6 @@
 .inputContainer {
-  padding: var(--space-md) var(--space-lg);
-  background: var(--bg-secondary);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-primary); /* WhatsApp footer color */
   border-top: 1px solid var(--border-primary);
 }
 
@@ -8,16 +8,14 @@
   display: flex;
   align-items: flex-end;
   gap: var(--space-sm);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-lg);
-  padding: var(--space-sm);
-  transition: border-color var(--transition-fast);
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl); /* Rounded pill */
+  padding: var(--space-xs) var(--space-sm);
+  box-shadow: var(--shadow-sm); /* Subtle shadow instead of border */
 }
 
 .inputContainer:focus-within {
-  border-color: var(--accent-primary);
-  box-shadow: var(--shadow-glow);
+  /* No outline or glow in WhatsApp style */
 }
 
 .textArea {

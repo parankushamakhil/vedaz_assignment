@@ -2,13 +2,13 @@
 
 /* ── Design Tokens ── */
 :root {
-  /* Colors — Light Theme (Facebook Style) */
-  --bg-primary: #f0f2f5;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #e4e6eb;
+  /* Colors — Light Theme (WhatsApp/Telegram Style) */
+  --bg-primary: #f0f2f5; /* App background / header */
+  --bg-secondary: #efeae2; /* Chat area background */
+  --bg-tertiary: #ffffff; /* Sidebar and elements */
   --bg-surface: #ffffff;
-  --bg-hover: #f2f2f2;
-  --bg-active: #e4e6eb;
+  --bg-hover: #f5f6f6;
+  --bg-active: #e9edef;
 
   /* Accent */
   --accent-primary: #1877f2;
@@ -22,21 +22,21 @@
   --text-muted: #8a8d91;
   --text-inverse: #ffffff;
 
-  /* Message Bubbles */
-  --bubble-own: #e7f3ff;
-  --bubble-own-text: #050505;
-  --bubble-other: #e4e6eb;
-  --bubble-other-text: #050505;
+  /* Message Bubbles (WhatsApp Style) */
+  --bubble-own: #dcf8c6;
+  --bubble-own-text: #111b21;
+  --bubble-other: #ffffff;
+  --bubble-other-text: #111b21;
 
   /* Status Colors */
   --status-online: #31a24c;
   --status-connecting: #f5c33b;
   --status-offline: #8a8d91;
 
-  /* Borders */
-  --border-primary: #ced0d4;
-  --border-secondary: #e4e6eb;
-  --border-accent: rgba(24, 119, 242, 0.3);
+  /* Borders (Soft contrasts instead of hard lines) */
+  --border-primary: rgba(0, 0, 0, 0.05);
+  --border-secondary: rgba(0, 0, 0, 0.02);
+  --border-accent: rgba(0, 0, 0, 0.05);
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -129,8 +129,7 @@ body {
 
 /* ── Focus Styles ── */
 :focus-visible {
-  outline: 2px solid var(--accent-primary);
-  outline-offset: 2px;
+  outline: none;
 }
 
 /* ── Selection ── */

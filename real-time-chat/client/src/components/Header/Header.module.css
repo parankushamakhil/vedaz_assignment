@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-lg);
-  background: var(--bg-secondary);
+  background: var(--bg-primary); /* WhatsApp header color */
   border-bottom: 1px solid var(--border-primary);
   position: relative;
   z-index: 10;
@@ -83,8 +83,8 @@
   font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--text-secondary);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-secondary);
+  background: transparent;
+  border: 1px solid var(--border-primary);
   transition: all var(--transition-fast);
 }
 
