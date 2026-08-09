@@ -12,9 +12,13 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 // Initialize Socket.io
+const allowedOrigin = process.env.CLIENT_URL 
+  ? process.env.CLIENT_URL.replace(/\/$/, '') 
+  : 'http://localhost:5173';
+
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: allowedOrigin,
     methods: ['GET', 'POST'],
     credentials: true,
   },
