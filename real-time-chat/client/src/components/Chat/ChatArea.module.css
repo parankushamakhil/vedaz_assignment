@@ -198,6 +198,19 @@
   backdrop-filter: blur(8px);
 }
 
+.backBtn {
+  display: none;
+  font-size: 24px;
+  color: var(--accent-primary);
+  padding: var(--space-xs);
+  margin-right: var(--space-sm);
+  transition: transform var(--transition-fast);
+}
+
+.backBtn:active {
+  transform: scale(0.9);
+}
+
 @media (max-width: 768px) {
   .messagesContainer {
     padding: var(--space-sm) var(--space-md);
@@ -205,5 +218,11 @@
 
   .chatHeader {
     padding: var(--space-sm) var(--space-md);
+    display: flex;
+    align-items: center;
+  }
+  
+  .backBtn {
+    display: block;
   }
 }

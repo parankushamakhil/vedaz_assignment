@@ -112,6 +112,17 @@ const ChatArea = () => {
     <div className={styles.chatArea}>
       {/* Chat header */}
       <div className={styles.chatHeader}>
+        <button
+          className={styles.backBtn}
+          onClick={() => {
+            // Unselect chat and open sidebar by triggering the header's toggle button
+            setActiveChatUser(null);
+            document.getElementById('toggle-sidebar-btn')?.click();
+          }}
+          aria-label="Back to chats"
+        >
+          ←
+        </button>
         <div className={styles.chatHeaderInfo}>
           <h2 className={styles.chatTitle}>{activeChatUser}</h2>
           <p className={styles.chatSubtitle}>
