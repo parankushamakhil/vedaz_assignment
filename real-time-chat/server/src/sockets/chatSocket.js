@@ -230,8 +230,6 @@ const initializeChatSocket = (io) => {
   });
 };
 
-};
-
 /**
  * Emit a new message event to specific users
  */
