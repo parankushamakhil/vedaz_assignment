@@ -61,6 +61,19 @@ const sendMessage = async (req, res, next) => {
 
     const message = await messageService.createMessage(username.trim(), receiver.trim(), content.trim());
 
+    // Broadcast the new message via Socket.io
+    const { emitNewMessage } = require('../sockets/chatSocket');
+    emitNewMessage(message.receiver, message.username, {
+      _id: message._id,
+      username: message.username,
+      receiver: message.receiver,
+      content: message.content,
+      messageType: message.messageType,
+      status: message.status,
+      createdAt: message.createdAt,
+      updatedAt: message.updatedAt,
+    });
+
     return successResponse(res, { message }, 'Message sent successfully', 201);
   } catch (error) {
     next(error);

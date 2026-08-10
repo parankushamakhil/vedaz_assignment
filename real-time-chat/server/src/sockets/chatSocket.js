@@ -3,6 +3,7 @@ const { setOnlineUsersMap } = require('../controllers/userController');
 
 // In-memory map: socketId -> { username, joinedAt }
 const onlineUsers = new Map();
+let ioInstance;
 
 /**
  * Get deduplicated list of online users (one entry per username)
@@ -45,6 +46,7 @@ const validatePayload = (data, requiredFields) => {
  * Initialize Socket.io event handlers
  */
 const initializeChatSocket = (io) => {
+  ioInstance = io;
   // Share the map with the user controller for REST API access
   setOnlineUsersMap(onlineUsers);
 
@@ -228,4 +230,21 @@ const initializeChatSocket = (io) => {
   });
 };
 
-module.exports = initializeChatSocket;
+};
+
+/**
+ * Emit a new message event to specific users
+ */
+const emitNewMessage = (receiver, sender, messagePayload) => {
+  if (ioInstance) {
+    // Emit to the receiver's private room
+    ioInstance.to(receiver).emit('new_message', messagePayload);
+    
+    // Emit back to the sender's room (so all their tabs get it)
+    if (sender !== receiver) {
+      ioInstance.to(sender).emit('new_message', messagePayload);
+    }
+  }
+};
+
+module.exports = { initializeChatSocket, emitNewMessage };

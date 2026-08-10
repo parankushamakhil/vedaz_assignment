@@ -46,8 +46,8 @@ export const getLatestMessages = async (username, withUser, limit = 50) => {
 /**
  * Send a message via REST (fallback)
  */
-export const sendMessageREST = async (username, content) => {
-  const response = await api.post('/messages', { username, content });
+export const sendMessageREST = async (username, receiver, content) => {
+  const response = await api.post('/messages', { username, receiver, content });
   return response;
 };
 

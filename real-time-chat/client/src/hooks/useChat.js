@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import socket from '../services/socket';
-import { getLatestMessages, getContacts } from '../services/api';
+import { getLatestMessages, getContacts, sendMessageREST } from '../services/api';
 
 const playNotificationSound = () => {
   try {
@@ -246,9 +246,9 @@ const useChat = (username, isConnected, activeChatUser) => {
     };
   }, [username, activeChatUser, fetchContacts]);
 
-  // ── Send message via Socket.io ──
+  // ── Send message via REST API ──
   const sendMessage = useCallback(
-    (content) => {
+    async (content) => {
       if (!content || content.trim().length === 0 || !activeChatUser) return;
       if (!isConnected) {
         setError('Unable to send message. You are disconnected.');
@@ -256,11 +256,12 @@ const useChat = (username, isConnected, activeChatUser) => {
         return;
       }
 
-      socket.emit('send_message', {
-        username,
-        receiver: activeChatUser,
-        content: content.trim(),
-      });
+      try {
+        await sendMessageREST(username, activeChatUser, content.trim());
+      } catch (err) {
+        setError('Failed to send message via API. Please try again.');
+        setTimeout(() => setError(null), 5000);
+      }
 
       // Stop typing indicator
       if (isTypingRef.current) {

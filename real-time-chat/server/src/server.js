@@ -4,7 +4,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const app = require('./app');
 const connectDB = require('./config/db');
-const initializeChatSocket = require('./sockets/chatSocket');
+const { initializeChatSocket } = require('./sockets/chatSocket');
 
 const PORT = process.env.PORT || 5000;
 

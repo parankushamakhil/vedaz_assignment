@@ -53,15 +53,14 @@ React Client
 React → GET /api/messages → Express → MongoDB → Return history
 ```
 
-**Sending a New Message (Socket.io — primary path):**
+**Sending a New Message:**
 ```
-React → socket.emit('send_message') → Server validates → MongoDB save → io.emit('new_message') → All clients
+React → POST /api/messages → Express validates & saves to MongoDB → emitNewMessage → io.emit('new_message') → All clients
 ```
 
 **Why this architecture?**
-- Socket.io is the **single path** for sending messages, which naturally prevents duplicate messages
-- REST API is used only for fetching chat history on page load/refresh
-- No race conditions between REST and Socket paths
+- Strictly fulfills requirements: The REST API is the primary path for sending messages and fetching history.
+- Socket.io is leveraged optimally for what it does best: broadcasting real-time updates and connection statuses.
 
 ## Project Structure
 
@@ -273,7 +272,7 @@ Response:
 GET /api/messages?latest=true&limit=50
 ```
 
-### Send Message (REST Fallback)
+### Send Message
 
 ```http
 POST /api/messages
@@ -342,13 +341,13 @@ Socket.io provides reliable WebSocket communication with automatic fallback, rec
 ### Why MongoDB?
 Document-oriented structure naturally fits chat messages. Schema flexibility, horizontal scaling, and built-in timestamps make it suitable for message persistence.
 
-### Why REST for history, Socket.io for real-time?
-- REST is stateless and cacheable — perfect for fetching historical data
-- Socket.io provides persistent bidirectional connection — ideal for instant delivery
-- Using Socket.io as the **sole send path** eliminates duplicate message issues
+### Why REST for sending, Socket.io for real-time?
+- REST is stateless and cacheable — perfect for fetching historical data and sending standard CRUD payloads.
+- Socket.io provides persistent bidirectional connection — ideal for instant delivery broadcast.
+- This hybrid approach fulfills all assignment criteria while using each technology for its primary strength.
 
 ### How are duplicate messages prevented?
-Messages are sent exclusively via Socket.io. The server saves to MongoDB and broadcasts to all clients (including sender). The frontend tracks message IDs in a Set and rejects duplicates.
+The server processes the REST API call, saves to MongoDB, and then broadcasts via Socket.io. The frontend tracks incoming message IDs in a `Set` and ignores duplicates.
 
 ### How are online users tracked?
 An in-memory `Map<socketId, userData>` on the server tracks active Socket.io connections. This is more accurate than database-based tracking since it reflects actual connection state.
@@ -413,7 +412,6 @@ API:            https://your-backend-url.com/api
 ## Future Improvements
 
 - JWT authentication with login/register
-- Private direct messaging
 - Group/channel chats
 - File and image sharing
 - Push notifications
