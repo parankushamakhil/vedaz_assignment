@@ -7,17 +7,13 @@ import styles from './Chat.module.css';
 
 const Chat = () => {
   const { activeChatUser } = useChatContext();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
-  const closeSidebar = () => setSidebarOpen(false);
 
   return (
-    <div className={`${styles.chatPage} ${activeChatUser ? styles.hasActiveChat : ''}`}>
-      <Header onToggleSidebar={toggleSidebar} />
+    <div className={styles.chatPage}>
+      <Header />
       <div className={styles.chatLayout}>
-        <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
-        <main className={styles.chatMain}>
+        <Sidebar className={activeChatUser ? styles.mobileHidden : ''} />
+        <main className={`${styles.chatMain} ${!activeChatUser ? styles.mobileHidden : ''}`}>
           <ChatArea />
         </main>
       </div>

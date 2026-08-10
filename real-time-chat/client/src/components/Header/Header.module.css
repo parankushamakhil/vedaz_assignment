@@ -20,22 +20,7 @@
   gap: var(--space-md);
 }
 
-.menuBtn {
-  display: none;
-  padding: var(--space-sm);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
-  font-size: 20px;
-}
 
-.menuBtn:hover {
-  background: var(--bg-hover);
-  transform: scale(1.05);
-}
-
-.menuBtn:active {
-  transform: scale(0.95);
-}
 
 .brand {
   display: flex;

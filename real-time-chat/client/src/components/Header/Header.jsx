@@ -3,7 +3,7 @@ import { useChatContext } from '../../context/ChatContext';
 import ConnectionStatus from '../Common/ConnectionStatus';
 import styles from './Header.module.css';
 
-const Header = ({ onToggleSidebar }) => {
+const Header = () => {
   const { currentUser, connectionStatus, logout } = useChatContext();
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
@@ -19,14 +19,7 @@ const Header = ({ onToggleSidebar }) => {
   return (
     <header className={styles.header} role="banner">
       <div className={styles.left}>
-        <button
-          className={styles.menuBtn}
-          onClick={onToggleSidebar}
-          aria-label="Toggle sidebar"
-          id="toggle-sidebar-btn"
-        >
-          ☰
-        </button>
+
         <div className={styles.brand}>
           <div className={styles.brandIcon}>💬</div>
           <span className={styles.brandName}>RealTime Chat</span>

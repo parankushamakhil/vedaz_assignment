@@ -1,5 +1,5 @@
 .loginPage {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,7 +115,7 @@
   border: 1.5px solid transparent;
   border-radius: var(--radius-md);
   color: var(--text-primary);
-  font-size: var(--font-size-base);
+  font-size: 16px; /* Prevents iOS Safari zoom */
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-inset);
 }

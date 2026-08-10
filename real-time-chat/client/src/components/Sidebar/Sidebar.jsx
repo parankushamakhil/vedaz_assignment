@@ -13,28 +13,20 @@ const getAvatarColor = (name) => {
   return avatarColors[charCode % avatarColors.length];
 };
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ className = '' }) => {
   const { contacts, currentUser, activeChatUser, setActiveChatUser } = useChatContext();
 
   return (
-    <>
-      {/* Mobile overlay */}
-      <div
-        className={`${styles.overlay} ${isOpen ? styles.overlayVisible : ''}`}
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      <aside
-        className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}
-        role="complementary"
-        aria-label="Online users"
-      >
-        <div className={styles.sidebarHeader}>
-          <h2 className={styles.title}>
-            Chats
-          </h2>
-        </div>
+    <aside
+      className={`${styles.sidebar} ${className}`}
+      role="complementary"
+      aria-label="Online users"
+    >
+      <div className={styles.sidebarHeader}>
+        <h2 className={styles.title}>
+          Chats
+        </h2>
+      </div>
 
         <div className={styles.usersList}>
           {contacts.length === 0 ? (
@@ -48,7 +40,6 @@ const Sidebar = ({ isOpen, onClose }) => {
                 key={user.username}
                 onClick={() => {
                   setActiveChatUser(user.username);
-                  if (onClose) onClose();
                 }}
                 role="button"
                 tabIndex={0}
@@ -71,7 +62,6 @@ const Sidebar = ({ isOpen, onClose }) => {
           )}
         </div>
       </aside>
-    </>
   );
 };
 

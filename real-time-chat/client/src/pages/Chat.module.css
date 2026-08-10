@@ -22,12 +22,9 @@
 }
 
 @media (max-width: 768px) {
-  /* Master-Detail Layout */
-  .chatPage:not(.hasActiveChat) .chatMain {
-    display: none;
-  }
-  
-  .chatPage.hasActiveChat :global(.sidebar) {
+  /* Master-Detail Layout Toggle */
+  .mobileHidden {
     display: none !important;
   }
 }
+
