@@ -25,8 +25,13 @@ const ChatArea = () => {
   const containerRef = useRef(null);
   const isNearBottomRef = useRef(true);
 
-  // Check if user is near the bottom of the scroll
+  // Check if user is near the bottom of the scroll (throttled)
+  const lastScrollTime = useRef(0);
   const handleScroll = useCallback(() => {
+    const now = Date.now();
+    if (now - lastScrollTime.current < 150) return; // Throttle to 150ms
+    lastScrollTime.current = now;
+
     const container = containerRef.current;
     if (!container) return;
 

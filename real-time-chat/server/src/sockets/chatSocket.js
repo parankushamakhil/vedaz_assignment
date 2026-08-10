@@ -78,7 +78,7 @@ const initializeChatSocket = (io) => {
       console.log(`User joined: ${username} (${socket.id})`);
 
       // Broadcast updated online users to everyone
-      io.emit('online_users', getOnlineUsersList());
+      // io.emit('online_users', getOnlineUsersList()); // REMOVED: Thundering herd fix
 
       // Notify others that a user joined
       socket.broadcast.emit('user_joined', {
@@ -209,7 +209,7 @@ const initializeChatSocket = (io) => {
         onlineUsers.delete(socket.id);
 
         // Broadcast updated online users
-        io.emit('online_users', getOnlineUsersList());
+        // io.emit('online_users', getOnlineUsersList()); // REMOVED: Thundering herd fix
 
         // Notify others
         socket.broadcast.emit('user_left', {

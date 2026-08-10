@@ -48,6 +48,8 @@ const messageSchema = new mongoose.Schema(
 
 // Index for fetching 1-on-1 history
 messageSchema.index({ username: 1, receiver: 1, createdAt: 1 });
+// Index for optimizing queries where user is the receiver (e.g. for '$or' history queries)
+messageSchema.index({ receiver: 1, username: 1, createdAt: 1 });
 
 const Message = mongoose.model('Message', messageSchema);
 

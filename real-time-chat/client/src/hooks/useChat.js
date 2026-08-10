@@ -166,8 +166,8 @@ const useChat = (username, isConnected, activeChatUser) => {
     };
 
     const onOnlineUsers = () => {
-      // Refresh contacts to update online status dots
-      fetchContacts();
+      // The server no longer broadcasts this to everyone to prevent thundering herd.
+      // We rely on user_joined and user_left for updates.
     };
 
     const onUserTyping = ({ username: typingUser }) => {
@@ -183,10 +183,30 @@ const useChat = (username, isConnected, activeChatUser) => {
       setTypingUsers((prev) => prev.filter((u) => u !== typingUser));
     };
 
-    const onUserJoined = () => fetchContacts();
+    const onUserJoined = ({ username: joinedUser }) => {
+      setContacts((prev) => {
+        const exists = prev.find(c => c.username === joinedUser);
+        let newContacts;
+        if (exists) {
+          newContacts = prev.map(c => c.username === joinedUser ? { ...c, isOnline: true } : c);
+        } else {
+          newContacts = [...prev, { username: joinedUser, isOnline: true }];
+        }
+        return newContacts.sort((a, b) => {
+          if (a.isOnline === b.isOnline) return a.username.localeCompare(b.username);
+          return a.isOnline ? -1 : 1;
+        });
+      });
+    };
+
     const onUserLeft = ({ username: leftUser }) => {
       setTypingUsers((prev) => prev.filter((u) => u !== leftUser));
-      fetchContacts();
+      setContacts((prev) => {
+        return prev.map(c => c.username === leftUser ? { ...c, isOnline: false } : c).sort((a, b) => {
+          if (a.isOnline === b.isOnline) return a.username.localeCompare(b.username);
+          return a.isOnline ? -1 : 1;
+        });
+      });
     };
 
     const onStatusUpdate = ({ messageIds, status }) => {

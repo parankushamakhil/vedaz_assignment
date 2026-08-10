@@ -1,19 +1,20 @@
 import { useChatContext } from '../../context/ChatContext';
 import styles from './Sidebar.module.css';
 
+const avatarColors = ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c', '#16a085', '#27ae60', '#2980b9', '#8e44ad', '#f39c12', '#d35400', '#c0392b'];
+
+const getInitial = (name) => {
+  return name ? name.charAt(0).toUpperCase() : '?';
+};
+
+const getAvatarColor = (name) => {
+  if (!name) return 'var(--bg-surface)';
+  const charCode = name.charCodeAt(0);
+  return avatarColors[charCode % avatarColors.length];
+};
+
 const Sidebar = ({ isOpen, onClose }) => {
   const { contacts, currentUser, activeChatUser, setActiveChatUser } = useChatContext();
-
-  const getInitial = (name) => {
-    return name ? name.charAt(0).toUpperCase() : '?';
-  };
-
-  const getAvatarColor = (name) => {
-    if (!name) return 'var(--bg-surface)';
-    const colors = ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c', '#16a085', '#27ae60', '#2980b9', '#8e44ad', '#f39c12', '#d35400', '#c0392b'];
-    const charCode = name.charCodeAt(0);
-    return colors[charCode % colors.length];
-  };
 
   return (
     <>
