@@ -202,13 +202,27 @@
   display: none;
   font-size: 24px;
   color: var(--accent-primary);
-  padding: var(--space-xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm);
   margin-right: var(--space-sm);
-  transition: transform var(--transition-fast);
+  border-radius: var(--radius-sm);
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.backBtn:hover {
+  background: var(--bg-hover);
 }
 
 .backBtn:active {
   transform: scale(0.9);
+  background: var(--bg-active);
 }
 
 @media (max-width: 768px) {
@@ -223,6 +237,6 @@
   }
   
   .backBtn {
-    display: block;
+    display: flex;
   }
 }

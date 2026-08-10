@@ -19,6 +19,7 @@ const ChatArea = () => {
     setError,
     markAsRead,
     activeChatUser,
+    setActiveChatUser,
   } = useChatContext();
 
   const messagesEndRef = useRef(null);
