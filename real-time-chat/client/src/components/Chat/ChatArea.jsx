@@ -48,13 +48,23 @@ const ChatArea = () => {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
       
       // Mark unread messages as read since we are at the bottom viewing them
-      const unreadIds = messages
-        .filter((m) => m.username !== currentUser && m.status !== 'read')
-        .map((m) => m._id);
+      const unreadMessages = messages
+        .filter((m) => m.username !== currentUser && m.status !== 'read');
         
-      if (unreadIds.length > 0) {
+      if (unreadMessages.length > 0) {
+        // Group by sender so we can pass the correct sender to each markAsRead call
+        const bySender = {};
+        unreadMessages.forEach((m) => {
+          if (!bySender[m.username]) bySender[m.username] = [];
+          bySender[m.username].push(m._id);
+        });
+        
         // Use a small timeout to avoid emitting immediately on render
-        setTimeout(() => markAsRead(unreadIds), 500);
+        setTimeout(() => {
+          Object.entries(bySender).forEach(([sender, ids]) => {
+            markAsRead(ids, sender);
+          });
+        }, 500);
       }
     }
   }, [messages, currentUser, markAsRead]);

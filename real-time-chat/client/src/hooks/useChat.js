@@ -134,9 +134,9 @@ const useChat = (username, isConnected, activeChatUser) => {
         setMessages((prev) => [...prev, message]);
       }
 
-      // Always mark as delivered if from another user
+      // Always mark as delivered if from another user, include sender for targeted notification
       if (message.username !== username) {
-        socket.emit('message_delivered', { messageIds: [message._id] });
+        socket.emit('message_delivered', { messageIds: [message._id], sender: message.username });
         
         // Always play sound for incoming messages
         playNotificationSound();
@@ -165,9 +165,21 @@ const useChat = (username, isConnected, activeChatUser) => {
       }
     };
 
-    const onOnlineUsers = () => {
-      // The server no longer broadcasts this to everyone to prevent thundering herd.
-      // We rely on user_joined and user_left for updates.
+    const onOnlineUsers = (users) => {
+      if (!Array.isArray(users)) return;
+      // Build a set of currently online usernames from the server's authoritative list
+      const onlineSet = new Set(users.map((u) => u.username));
+
+      setContacts((prev) => {
+        const updated = prev.map((c) => ({
+          ...c,
+          isOnline: onlineSet.has(c.username),
+        }));
+        return updated.sort((a, b) => {
+          if (a.isOnline === b.isOnline) return a.username.localeCompare(b.username);
+          return a.isOnline ? -1 : 1;
+        });
+      });
     };
 
     const onUserTyping = ({ username: typingUser }) => {
@@ -185,13 +197,13 @@ const useChat = (username, isConnected, activeChatUser) => {
 
     const onUserJoined = ({ username: joinedUser }) => {
       setContacts((prev) => {
+        // Only update online status for existing contacts — don't add strangers
         const exists = prev.find(c => c.username === joinedUser);
-        let newContacts;
-        if (exists) {
-          newContacts = prev.map(c => c.username === joinedUser ? { ...c, isOnline: true } : c);
-        } else {
-          newContacts = [...prev, { username: joinedUser, isOnline: true }];
-        }
+        if (!exists) return prev;
+
+        const newContacts = prev.map(c =>
+          c.username === joinedUser ? { ...c, isOnline: true } : c
+        );
         return newContacts.sort((a, b) => {
           if (a.isOnline === b.isOnline) return a.username.localeCompare(b.username);
           return a.isOnline ? -1 : 1;
@@ -233,6 +245,9 @@ const useChat = (username, isConnected, activeChatUser) => {
     socket.on('user_left', onUserLeft);
     socket.on('messages_status_update', onStatusUpdate);
     socket.on('error_message', onErrorMessage);
+
+    // Request a fresh online users list to reconcile stale state
+    socket.emit('request_online_users');
 
     return () => {
       socket.off('new_message', onNewMessage);
@@ -297,9 +312,9 @@ const useChat = (username, isConnected, activeChatUser) => {
 
   // ── Mark messages as read ──
   const markAsRead = useCallback(
-    (messageIds) => {
+    (messageIds, sender) => {
       if (!isConnected || !messageIds || messageIds.length === 0) return;
-      socket.emit('message_read', { messageIds });
+      socket.emit('message_read', { messageIds, sender });
     },
     [isConnected]
   );

@@ -26,6 +26,17 @@ const getOnlineUsersList = () => {
 };
 
 /**
+ * Count how many sockets a given username has
+ */
+const getSocketCountForUser = (username) => {
+  let count = 0;
+  for (const [, userData] of onlineUsers) {
+    if (userData.username === username) count++;
+  }
+  return count;
+};
+
+/**
  * Validate a socket event payload
  */
 const validatePayload = (data, requiredFields) => {
@@ -68,6 +79,9 @@ const initializeChatSocket = (io) => {
         return;
       }
 
+      // Check if this is the user's first socket (before adding)
+      const isFirstSocket = getSocketCountForUser(username) === 0;
+
       // Store user
       onlineUsers.set(socket.id, {
         username,
@@ -79,14 +93,14 @@ const initializeChatSocket = (io) => {
 
       console.log(`User joined: ${username} (${socket.id})`);
 
-      // Broadcast updated online users to everyone
-      // io.emit('online_users', getOnlineUsersList()); // REMOVED: Thundering herd fix
-
-      // Notify others that a user joined
-      socket.broadcast.emit('user_joined', {
-        username,
-        timestamp: new Date().toISOString(),
-      });
+      // Only broadcast user_joined if this is the user's first socket
+      // (prevents ghost duplicate join events from multiple tabs)
+      if (isFirstSocket) {
+        socket.broadcast.emit('user_joined', {
+          username,
+          timestamp: new Date().toISOString(),
+        });
+      }
     });
 
     // ── Send Message ──
@@ -162,7 +176,7 @@ const initializeChatSocket = (io) => {
 
     // ── Message Delivered ──
     socket.on('message_delivered', async (data) => {
-      if (!data || !Array.isArray(data.messageIds)) return;
+      if (!data || !Array.isArray(data.messageIds) || !data.sender) return;
 
       const user = onlineUsers.get(socket.id);
       if (!user) return;
@@ -170,8 +184,8 @@ const initializeChatSocket = (io) => {
       try {
         await messageService.markMessagesDelivered(data.messageIds, user.username);
 
-        // Notify message senders about delivery
-        socket.broadcast.emit('messages_status_update', {
+        // Notify only the original message sender's room (not broadcast)
+        io.to(data.sender).emit('messages_status_update', {
           messageIds: data.messageIds,
           status: 'delivered',
           updatedBy: user.username,
@@ -183,7 +197,7 @@ const initializeChatSocket = (io) => {
 
     // ── Message Read ──
     socket.on('message_read', async (data) => {
-      if (!data || !Array.isArray(data.messageIds)) return;
+      if (!data || !Array.isArray(data.messageIds) || !data.sender) return;
 
       const user = onlineUsers.get(socket.id);
       if (!user) return;
@@ -191,8 +205,8 @@ const initializeChatSocket = (io) => {
       try {
         await messageService.markMessagesRead(data.messageIds, user.username);
 
-        // Notify message senders about read
-        socket.broadcast.emit('messages_status_update', {
+        // Notify only the original message sender's room (not broadcast)
+        io.to(data.sender).emit('messages_status_update', {
           messageIds: data.messageIds,
           status: 'read',
           updatedBy: user.username,
@@ -202,22 +216,29 @@ const initializeChatSocket = (io) => {
       }
     });
 
+    // ── Request Online Users (client can request a fresh list) ──
+    socket.on('request_online_users', () => {
+      socket.emit('online_users', getOnlineUsersList());
+    });
+
     // ── Disconnect ──
     socket.on('disconnect', (reason) => {
       const user = onlineUsers.get(socket.id);
 
       if (user) {
-        console.log(`User disconnected: ${user.username} (${socket.id}) — ${reason}`);
+        const username = user.username;
+        console.log(`User disconnected: ${username} (${socket.id}) — ${reason}`);
         onlineUsers.delete(socket.id);
 
-        // Broadcast updated online users
-        // io.emit('online_users', getOnlineUsersList()); // REMOVED: Thundering herd fix
-
-        // Notify others
-        socket.broadcast.emit('user_left', {
-          username: user.username,
-          timestamp: new Date().toISOString(),
-        });
+        // Only broadcast user_left if the user has NO remaining sockets
+        // (prevents ghost offline status when user still has other tabs open)
+        const remainingSockets = getSocketCountForUser(username);
+        if (remainingSockets === 0) {
+          socket.broadcast.emit('user_left', {
+            username,
+            timestamp: new Date().toISOString(),
+          });
+        }
       } else {
         console.log(`Socket disconnected: ${socket.id} — ${reason}`);
       }
