@@ -2,9 +2,9 @@
   display: flex;
   margin-bottom: var(--space-sm);
   width: 100%;
-  animation: slideUp 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(12px);
 }
 
 @keyframes slideUp {
@@ -26,6 +26,11 @@
   max-width: 65%;
   min-width: 100px;
   position: relative;
+  transition: transform var(--transition-fast);
+}
+
+.bubble:hover {
+  transform: scale(1.01);
 }
 
 .bubbleInner {
@@ -34,20 +39,30 @@
   position: relative;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  transition: box-shadow var(--transition-fast);
 }
 
 .own .bubbleInner {
   background: var(--bubble-own);
   color: var(--bubble-own-text);
   border-bottom-right-radius: var(--space-xs);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md), 0 2px 12px rgba(59, 130, 246, 0.15);
+}
+
+.own .bubble:hover .bubbleInner {
+  box-shadow: var(--shadow-lg), 0 4px 18px rgba(59, 130, 246, 0.2);
 }
 
 .other .bubbleInner {
   background: var(--bubble-other);
   color: var(--bubble-other-text);
   border-bottom-left-radius: var(--space-xs);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-secondary);
+}
+
+.other .bubble:hover .bubbleInner {
+  box-shadow: var(--shadow-lg);
 }
 
 .senderName {
@@ -121,9 +136,12 @@
   font-size: var(--font-size-xs);
   color: var(--text-muted);
   padding: 4px 14px;
-  background: var(--bg-primary);
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-sm);
+  border: 1px solid var(--glass-border);
   white-space: nowrap;
 }
 

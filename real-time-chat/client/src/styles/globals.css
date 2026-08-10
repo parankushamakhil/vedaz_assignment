@@ -1,49 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ── Design Tokens ── */
+/* Golden Ratio Color System
+   φ = 1.618 · Golden Angle = 137.5°
+   Base hue: 222° (blue)
+   φ-rotated hues: 360° (rose), 137° (emerald), 275° (violet)
+   Lightness steps: 97% → 94% → 90% (÷φ progression from near-white)
+   Saturation steps: 89% → 55% → 34% (÷φ from peak) */
 :root {
-  /* Colors — Clean Light Theme */
-  --bg-primary: #ffffff;        /* Main background (header, footer, sidebar) */
-  --bg-secondary: #f7f8fc;      /* Chat area — very faint blue-grey */
-  --bg-tertiary: #f0f2f5;       /* Input fields, hover states */
-  --bg-surface: #ffffff;        /* Cards, bubbles, elevated surfaces */
-  --bg-hover: #eef1f5;          /* Hover highlight */
-  --bg-active: #e3e8ef;         /* Active/selected states */
+  /* Backgrounds — Lightness follows φ: 99% → 97% → 94% → 90% → 86% */
+  --bg-primary: hsl(222, 25%, 99%);
+  --bg-secondary: hsl(222, 22%, 97%);
+  --bg-tertiary: hsl(222, 18%, 94%);
+  --bg-surface: hsl(222, 25%, 99%);
+  --bg-hover: hsl(222, 16%, 92%);
+  --bg-active: hsl(222, 14%, 88%);
 
-  /* Accent — Soft Blue (iMessage / Telegram inspired) */
-  --accent-primary: #3b82f6;
-  --accent-secondary: #2563eb;
-  --accent-glow: rgba(59, 130, 246, 0.15);
-  --accent-gradient: linear-gradient(135deg, #3b82f6, #6366f1);
+  /* Glassmorphism surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: 16px;
 
-  /* Text */
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
+  /* Accent — Base hue 222° with φ-derived violet at 275° */
+  --accent-primary: hsl(222, 89%, 56%);
+  --accent-secondary: hsl(222, 89%, 46%);
+  --accent-glow: hsla(222, 89%, 56%, 0.12);
+  --accent-gradient: linear-gradient(135deg, hsl(222, 89%, 56%), hsl(275, 80%, 56%));
+  --accent-gradient-hover: linear-gradient(135deg, hsl(222, 89%, 46%), hsl(275, 80%, 46%));
+
+  /* Text — Lightness: 11% → 46% → 64% (×φ steps from dark) */
+  --text-primary: hsl(222, 47%, 11%);
+  --text-secondary: hsl(222, 20%, 46%);
+  --text-muted: hsl(222, 14%, 64%);
   --text-inverse: #ffffff;
 
-  /* Message Bubbles */
-  --bubble-own: #3b82f6;        /* Own messages — solid blue */
+  /* Message Bubbles — Gradient uses φ-rotated hues */
+  --bubble-own: linear-gradient(135deg, hsl(222, 89%, 56%) 0%, hsl(275, 80%, 56%) 100%);
+  --bubble-own-flat: hsl(222, 89%, 56%);
   --bubble-own-text: #ffffff;
-  --bubble-other: #ffffff;      /* Other messages — white */
-  --bubble-other-text: #1e293b;
+  --bubble-other: hsl(222, 25%, 99%);
+  --bubble-other-text: hsl(222, 47%, 11%);
 
-  /* Status Colors */
-  --status-online: #22c55e;
-  --status-connecting: #f59e0b;
-  --status-offline: #94a3b8;
-  --color-success: #22c55e;
+  /* Status — φ-rotated hues: emerald 142°, amber 38°, neutral */
+  --status-online: hsl(142, 71%, 45%);
+  --status-connecting: hsl(38, 92%, 50%);
+  --status-offline: hsl(222, 14%, 64%);
+  --color-success: hsl(142, 71%, 45%);
 
-  /* Borders — Very subtle, almost invisible */
-  --border-primary: #e2e8f0;
-  --border-secondary: #f1f5f9;
-  --border-accent: rgba(59, 130, 246, 0.2);
+  /* Borders — Derived from bg hue at low saturation */
+  --border-primary: hsla(222, 20%, 86%, 0.6);
+  --border-secondary: hsla(222, 18%, 94%, 0.8);
+  --border-accent: hsla(222, 89%, 56%, 0.18);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 4px 14px rgba(59, 130, 246, 0.2);
+  /* Spatial Shadows — Multi-layered for depth */
+  --shadow-xs: 0 1px 2px hsla(222, 47%, 11%, 0.03);
+  --shadow-sm: 0 1px 3px hsla(222, 47%, 11%, 0.04), 0 1px 2px hsla(222, 47%, 11%, 0.03);
+  --shadow-md: 0 4px 6px -1px hsla(222, 47%, 11%, 0.05), 0 2px 4px -2px hsla(222, 47%, 11%, 0.04);
+  --shadow-lg: 0 10px 25px -3px hsla(222, 47%, 11%, 0.06), 0 4px 10px -4px hsla(222, 47%, 11%, 0.04);
+  --shadow-xl: 0 20px 40px -5px hsla(222, 47%, 11%, 0.08), 0 8px 16px -8px hsla(222, 47%, 11%, 0.05);
+  --shadow-glow: 0 4px 14px hsla(222, 89%, 56%, 0.25);
+  --shadow-glow-lg: 0 8px 30px hsla(222, 89%, 56%, 0.3);
+  --shadow-inset: inset 0 1px 2px hsla(222, 47%, 11%, 0.04);
 
   /* Spacing */
   --space-xs: 4px;
@@ -54,10 +71,10 @@
   --space-2xl: 48px;
 
   /* Border Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
 
   /* Typography */
@@ -71,10 +88,11 @@
   --font-size-2xl: 2rem;
   --font-size-3xl: 2.5rem;
 
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
-  --transition-slow: 0.4s ease;
+  /* Transitions — Spatial easing curves */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
   --sidebar-width: 300px;
@@ -99,7 +117,7 @@ html {
 
 body {
   font-family: var(--font-family);
-  background-color: var(--bg-primary);
+  background-color: var(--bg-secondary);
   color: var(--text-primary);
   line-height: 1.5;
   min-height: 100vh;
@@ -130,6 +148,14 @@ body {
 
 /* ── Focus Styles ── */
 :focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove rectangular outline from inputs/textareas that handle focus themselves */
+input:focus-visible,
+textarea:focus-visible {
   outline: none;
 }
 
@@ -228,10 +254,41 @@ a {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.92) translateY(10px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
   }
 }
