@@ -182,10 +182,6 @@
     gap: var(--space-xs);
   }
 
-  .menuBtn {
-    display: flex;
-  }
-
   .brandName {
     display: none;
   }

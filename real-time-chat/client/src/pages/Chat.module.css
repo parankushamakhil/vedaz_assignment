@@ -1,5 +1,5 @@
 .chatPage {
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
@@ -10,6 +10,7 @@
   flex: 1;
   display: flex;
   overflow: hidden;
+  position: relative;
 }
 
 .chatMain {
@@ -18,4 +19,15 @@
   flex-direction: column;
   overflow: hidden;
   min-width: 0;
+}
+
+@media (max-width: 768px) {
+  /* Master-Detail Layout */
+  .chatPage:not(.hasActiveChat) .chatMain {
+    display: none;
+  }
+  
+  .chatPage.hasActiveChat :global(.sidebar) {
+    display: none !important;
+  }
 }
