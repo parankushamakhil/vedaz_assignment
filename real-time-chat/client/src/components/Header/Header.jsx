@@ -41,7 +41,6 @@ const Header = ({ onToggleSidebar }) => {
             {currentUser ? currentUser.charAt(0).toUpperCase() : '?'}
           </span>
           <span className={styles.userName}>{currentUser}</span>
-          <span className={styles.onlineDot}></span>
         </div>
 
         <button

@@ -117,14 +117,6 @@
   white-space: nowrap;
 }
 
-.onlineDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--status-online);
-  box-shadow: 0 0 6px var(--status-online);
-  flex-shrink: 0;
-}
 
 /* ── Theme Toggle ── */
 .themeToggle {
