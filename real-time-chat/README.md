@@ -91,9 +91,3 @@ npm run dev
 3. **Online Status**: A user is considered "Online" as long as they have an active Socket.io WebSocket connection open.
 
 ---
-
-## 🌐 Live URLs & Submission
-
-- **Live Frontend**: *(Add your Vercel URL here)*
-- **Live Backend API**: *(Add your Render URL here)*
-- **Screen Recording**: *(Add your Google Drive link here)*
