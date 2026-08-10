@@ -195,3 +195,60 @@
   color: var(--text-muted);
   text-align: right;
 }
+
+/* ── Theme Toggle on Login ── */
+.themeToggle {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+}
+
+.themeToggle:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: var(--shadow-md);
+}
+
+.themeToggle:active {
+  transform: scale(0.9);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .loginCard {
+    padding: var(--space-xl) var(--space-md);
+    border-radius: var(--radius-lg);
+  }
+
+  .logoIcon {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+
+  .logoTitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .themeToggle {
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}

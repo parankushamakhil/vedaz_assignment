@@ -11,6 +11,7 @@
   position: relative;
   z-index: 10;
   box-shadow: var(--shadow-xs);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .left {
@@ -70,26 +71,96 @@
 .right {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
-.userInfo {
+/* ── User Badge ── */
+.userBadge {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  padding: 4px 12px 4px 4px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-primary);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.userBadge:hover {
+  background: var(--bg-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.userAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.userName {
   font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-}
-
-.userLabel {
-  color: var(--text-muted);
-}
-
-.username {
+  font-weight: 600;
   color: var(--text-primary);
-  font-weight: 500;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+.onlineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-online);
+  box-shadow: 0 0 6px var(--status-online);
+  flex-shrink: 0;
+}
+
+/* ── Theme Toggle ── */
+.themeToggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.themeToggle:hover {
+  background: var(--bg-hover);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-sm);
+}
+
+.themeToggle:active {
+  transform: scale(0.9);
+}
+
+.themeIcon {
+  font-size: 16px;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.themeToggle:hover .themeIcon {
+  transform: rotate(20deg);
+}
+
+/* ── Logout Button ── */
 .logoutBtn {
   padding: 6px 16px;
   border-radius: var(--radius-full);
@@ -112,16 +183,45 @@
   transform: translateY(0) scale(0.97);
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .header {
-    padding: 0 var(--space-md);
+    padding: 0 var(--space-sm);
+    gap: var(--space-xs);
   }
 
   .menuBtn {
     display: flex;
   }
 
-  .userInfo {
+  .brandName {
     display: none;
+  }
+
+  .userName {
+    display: none;
+  }
+
+  .logoutBtn {
+    padding: 5px 10px;
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 var(--space-xs);
+  }
+
+  .logoutBtn span {
+    display: none;
+  }
+
+  .right {
+    gap: 4px;
+  }
+
+  .userBadge {
+    padding: 3px 8px 3px 3px;
   }
 }

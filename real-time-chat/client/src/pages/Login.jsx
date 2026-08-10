@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useChatContext } from '../context/ChatContext';
 import styles from './Login.module.css';
 
@@ -6,6 +6,14 @@ const Login = () => {
   const { joinChat } = useChatContext();
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   const validate = (value) => {
     const trimmed = value.trim();
@@ -41,6 +49,15 @@ const Login = () => {
 
   return (
     <div className={styles.loginPage}>
+      <button
+        className={styles.themeToggle}
+        onClick={() => setDarkMode((prev) => !prev)}
+        aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        id="login-theme-toggle-btn"
+      >
+        {darkMode ? '☀️' : '🌙'}
+      </button>
+
       <div className={styles.loginCard}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>💬</div>

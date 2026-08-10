@@ -100,6 +100,54 @@
   --input-height: 72px;
 }
 
+/* ── Dark Theme — Inverted φ-lightness: 8% → 11% → 14% → 18% → 22% ── */
+[data-theme="dark"] {
+  --bg-primary: hsl(222, 30%, 8%);
+  --bg-secondary: hsl(222, 28%, 11%);
+  --bg-tertiary: hsl(222, 25%, 14%);
+  --bg-surface: hsl(222, 30%, 8%);
+  --bg-hover: hsl(222, 22%, 18%);
+  --bg-active: hsl(222, 20%, 22%);
+
+  --glass-bg: rgba(15, 20, 35, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --accent-primary: hsl(222, 89%, 62%);
+  --accent-secondary: hsl(222, 89%, 72%);
+  --accent-glow: hsla(222, 89%, 62%, 0.15);
+  --accent-gradient: linear-gradient(135deg, hsl(222, 89%, 62%), hsl(275, 80%, 62%));
+  --accent-gradient-hover: linear-gradient(135deg, hsl(222, 89%, 56%), hsl(275, 80%, 56%));
+
+  --text-primary: hsl(222, 20%, 93%);
+  --text-secondary: hsl(222, 14%, 64%);
+  --text-muted: hsl(222, 10%, 45%);
+  --text-inverse: hsl(222, 30%, 8%);
+
+  --bubble-own: linear-gradient(135deg, hsl(222, 89%, 52%) 0%, hsl(275, 75%, 50%) 100%);
+  --bubble-own-flat: hsl(222, 89%, 52%);
+  --bubble-own-text: #ffffff;
+  --bubble-other: hsl(222, 25%, 14%);
+  --bubble-other-text: hsl(222, 20%, 93%);
+
+  --status-online: hsl(142, 71%, 50%);
+  --status-connecting: hsl(38, 92%, 55%);
+  --status-offline: hsl(222, 10%, 45%);
+  --color-success: hsl(142, 71%, 50%);
+
+  --border-primary: hsla(222, 20%, 25%, 0.6);
+  --border-secondary: hsla(222, 18%, 18%, 0.8);
+  --border-accent: hsla(222, 89%, 62%, 0.2);
+
+  --shadow-xs: 0 1px 2px hsla(222, 47%, 3%, 0.2);
+  --shadow-sm: 0 1px 3px hsla(222, 47%, 3%, 0.25), 0 1px 2px hsla(222, 47%, 3%, 0.2);
+  --shadow-md: 0 4px 6px -1px hsla(222, 47%, 3%, 0.3), 0 2px 4px -2px hsla(222, 47%, 3%, 0.25);
+  --shadow-lg: 0 10px 25px -3px hsla(222, 47%, 3%, 0.35), 0 4px 10px -4px hsla(222, 47%, 3%, 0.25);
+  --shadow-xl: 0 20px 40px -5px hsla(222, 47%, 3%, 0.4), 0 8px 16px -8px hsla(222, 47%, 3%, 0.3);
+  --shadow-glow: 0 4px 14px hsla(222, 89%, 62%, 0.2);
+  --shadow-glow-lg: 0 8px 30px hsla(222, 89%, 62%, 0.25);
+  --shadow-inset: inset 0 1px 2px hsla(222, 47%, 3%, 0.2);
+}
+
 /* ── Reset ── */
 *,
 *::before,
@@ -113,6 +161,7 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
 }
 
 body {
@@ -122,6 +171,7 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {

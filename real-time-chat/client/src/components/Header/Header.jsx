@@ -1,9 +1,20 @@
+import { useState, useEffect } from 'react';
 import { useChatContext } from '../../context/ChatContext';
 import ConnectionStatus from '../Common/ConnectionStatus';
 import styles from './Header.module.css';
 
 const Header = ({ onToggleSidebar }) => {
   const { currentUser, connectionStatus, logout } = useChatContext();
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
+
+  const toggleTheme = () => setDarkMode((prev) => !prev);
 
   return (
     <header className={styles.header} role="banner">
@@ -24,10 +35,25 @@ const Header = ({ onToggleSidebar }) => {
 
       <div className={styles.right}>
         <ConnectionStatus status={connectionStatus} />
-        <div className={styles.userInfo}>
-          <span className={styles.userLabel}>Logged in as</span>
-          <span className={styles.username}>{currentUser}</span>
+
+        <div className={styles.userBadge}>
+          <span className={styles.userAvatar}>
+            {currentUser ? currentUser.charAt(0).toUpperCase() : '?'}
+          </span>
+          <span className={styles.userName}>{currentUser}</span>
+          <span className={styles.onlineDot}></span>
         </div>
+
+        <button
+          className={styles.themeToggle}
+          onClick={toggleTheme}
+          aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          id="theme-toggle-btn"
+          title={darkMode ? 'Light mode' : 'Dark mode'}
+        >
+          <span className={styles.themeIcon}>{darkMode ? '☀️' : '🌙'}</span>
+        </button>
+
         <button
           className={styles.logoutBtn}
           onClick={logout}
